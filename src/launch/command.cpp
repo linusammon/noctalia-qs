@@ -57,6 +57,10 @@ QList<QString> configBaseDirs() {
 		dir.append("/quickshell");
 	}
 
+	// Extra admin-installed locations, searched *after* user config
+	configDirs.append("/usr/local/share/quickshell");
+	configDirs.append("/usr/share/quickshell");
+
 	return configDirs;
 }
 
