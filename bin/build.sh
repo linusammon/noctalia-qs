@@ -11,7 +11,7 @@ rm -rf "$BUILD_DIR"
 echo "==> Configuring..."
 cmake -GNinja \
     -B "$BUILD_DIR" \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_PREFIX=/usr/local \
     "$ROOT_DIR"
 
