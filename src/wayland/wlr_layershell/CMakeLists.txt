@@ -10,9 +10,9 @@ qt_add_qml_module(quickshell-wayland-layershell
 	DEPENDENCIES QtQuick
 )
 
-set_target_properties(quickshell-wayland-layershell PROPERTIES
-	QT_QML_MODULE_FOREIGN_TYPES
-		"${CMAKE_SOURCE_DIR}/src/core/reload.hpp;${CMAKE_SOURCE_DIR}/src/window/proxywindow.hpp"
+target_sources(quickshell-wayland-layershell PRIVATE
+	${CMAKE_BINARY_DIR}/src/core/meta_types/qt6quickshell-core_metatypes.json
+	${CMAKE_BINARY_DIR}/src/window/meta_types/qt6quickshell-window_metatypes.json
 )
 
 qs_add_module_deps_light(quickshell-wayland-layershell Quickshell Quickshell.Wayland)
