@@ -5,8 +5,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 BUILD_DIR="$ROOT_DIR/build-release"
 
-echo "==> Cleaning build directory..."
-rm -rf "$BUILD_DIR"
+if [ "$1" = "clean" ]; then
+    echo "==> Cleaning build directory..."
+    rm -rf "$BUILD_DIR"
+fi
 
 echo "==> Configuring..."
 cmake -GNinja \
