@@ -531,6 +531,8 @@ void FileView::updateWatchedFiles() {
 }
 
 void FileView::onWatchedFileChanged() {
+	if (!this->watcher) return;
+
 	if (!this->watcher->files().contains(this->targetPath)) {
 		this->watcher->addPath(this->targetPath);
 	}
@@ -539,6 +541,8 @@ void FileView::onWatchedFileChanged() {
 }
 
 void FileView::onWatchedDirectoryChanged() {
+	if (!this->watcher) return;
+
 	if (!this->watcher->files().contains(this->targetPath) && QFileInfo(this->targetPath).exists()) {
 		// the file was just created
 		this->watcher->addPath(this->targetPath);
