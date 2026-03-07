@@ -366,12 +366,12 @@ void NiriIpc::makeRequest(
 
 	qCDebug(logNiriIpc) << "Making request:" << request.trimmed();
 
-	auto connectedCallback = [this, request, requestSocket, buffer, callback]() {
+	auto connectedCallback = [request, requestSocket]() {
 		requestSocket->write(request);
 		requestSocket->flush();
 	};
 
-	auto readyCallback = [this, requestSocket, buffer, callback]() {
+	auto readyCallback = [requestSocket, buffer, callback]() {
 		buffer->append(requestSocket->readAll());
 		auto newlineIdx = buffer->indexOf('\n');
 		if (newlineIdx < 0) return; // Wait for more data
@@ -386,6 +386,7 @@ void NiriIpc::makeRequest(
 			callback(false, {});
 		}
 
+		requestSocket->disconnect();
 		requestSocket->disconnectFromServer();
 		requestSocket->deleteLater();
 		delete buffer;
@@ -395,6 +396,7 @@ void NiriIpc::makeRequest(
 	                          QLocalSocket::LocalSocketError error
 	                      ) {
 		qCWarning(logNiriIpc) << "Error making request:" << error << "request:" << request.trimmed();
+		requestSocket->disconnect();
 		requestSocket->deleteLater();
 		delete buffer;
 		callback(false, {});

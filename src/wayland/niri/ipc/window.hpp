@@ -8,6 +8,8 @@
 #include <qtmetamacros.h>
 #include <qtypes.h>
 
+class QJsonObject;
+
 namespace qs::niri::ipc {
 
 class NiriIpc;
