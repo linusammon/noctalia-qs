@@ -114,6 +114,10 @@ if (HYPRLAND)
 	add_subdirectory(hyprland)
 endif()
 
+if (NIRI)
+	add_subdirectory(niri)
+endif()
+
 add_subdirectory(idle_inhibit)
 list(APPEND WAYLAND_MODULES Quickshell.Wayland._IdleInhibitor)
 
