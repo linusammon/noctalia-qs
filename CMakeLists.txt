@@ -84,7 +84,10 @@ boption(NETWORK "Network" ON)
 include(cmake/install-qml-module.cmake)
 include(cmake/util.cmake)
 
-add_compile_options(-Wall -Wextra -Wno-vla-cxx-extension)
+add_compile_options(-Wall -Wextra)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	add_compile_options(-Wno-vla-cxx-extension)
+endif()
 
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO ON)
