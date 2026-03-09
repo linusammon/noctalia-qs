@@ -103,13 +103,14 @@ void HyprlandIpc::eventSocketStateChanged(QLocalSocket::LocalSocketState state) 
 }
 
 void HyprlandIpc::eventSocketReady() {
-	while (true) {
+	while (this->eventSocket.canReadLine()) {
 		auto rawEvent = this->eventSocket.readLine();
 		if (rawEvent.isEmpty()) break;
 
 		// remove trailing \n
 		rawEvent.truncate(rawEvent.length() - 1);
 		auto splitIdx = rawEvent.indexOf(">>");
+		if (splitIdx == -1) continue;
 		auto event = QByteArrayView(rawEvent.data(), splitIdx);
 		auto data = QByteArrayView(
 		    rawEvent.data() + splitIdx + 2,     // NOLINT
